@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cf3882512223c34298a02845209227b, type: 3}
+  m_Name: Enemy Factory
+  m_EditorClassIdentifier: 
+  _small:
+    prefab: {fileID: 7579246109789555511, guid: b16e5f19c1d1fb44fb117ad0089746f5, type: 3}
+    scale:
+      _min: 0.5
+      _max: 0.6
+    speed:
+      _min: 1.5
+      _max: 2
+    offSet:
+      _min: -0.3
+      _max: 0.3
+    health:
+      _min: 40
+      _max: 50
+  _medium:
+    prefab: {fileID: 7579246109789555511, guid: b16e5f19c1d1fb44fb117ad0089746f5, type: 3}
+    scale:
+      _min: 0.9
+      _max: 1
+    speed:
+      _min: 0.8
+      _max: 1.2
+    offSet:
+      _min: -0.2
+      _max: 0.2
+    health:
+      _min: 90
+      _max: 120
+  _large:
+    prefab: {fileID: 7579246109789555511, guid: b16e5f19c1d1fb44fb117ad0089746f5, type: 3}
+    scale:
+      _min: 1.2
+      _max: 1.4
+    speed:
+      _min: 0.5
+      _max: 0.6
+    offSet:
+      _min: -0.1
+      _max: 0.1
+    health:
+      _min: 500
+      _max: 600
