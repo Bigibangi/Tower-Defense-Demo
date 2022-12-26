@@ -65,15 +65,17 @@ public class HexGrid : MonoBehaviour {
         label.rectTransform.anchoredPosition =
             new Vector2(position.x, position.z);
         label.text = cell.coordinates.ToStringOnSeparateLine();
+        cell.uiRect = label.rectTransform;
     }
 
-    public void ColorCell(Vector3 position, Color color) {
+    public HexCell GetCell(Vector3 position, Color color) {
         position = transform.InverseTransformPoint(position);
         var coordinates = HexCoordinates.FromPosition(position);
         int index = coordinates.X + coordinates.Z * width + coordinates.Z / 2;
-        HexCell cell = _cells[index];
-        cell.color = color;
+        return _cells[index];
+    }
+
+    public void Refresh() {
         _hexMesh.Triangulate(_cells);
-        Debug.Log("touched at " + coordinates.ToString());
     }
 }

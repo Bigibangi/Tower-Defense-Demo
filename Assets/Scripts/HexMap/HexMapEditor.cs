@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -6,6 +7,7 @@ public class HexMapEditor : MonoBehaviour {
     public HexGrid hexgrid;
 
     private Color _activeColor;
+    private int _activeElevation;
 
     #region Monobehaviour
 
@@ -28,11 +30,21 @@ public class HexMapEditor : MonoBehaviour {
         var inputRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if (Physics.Raycast(inputRay, out hit)) {
-            hexgrid.ColorCell(hit.point, _activeColor);
+            EditCell(hexgrid.GetCell(hit.point, _activeColor));
         }
     }
 
     public void SelectColor(int index) {
         _activeColor = colors[index];
+    }
+
+    public void SetElevation(float elevation) {
+        _activeElevation = (int) elevation;
+    }
+
+    private void EditCell(HexCell hexCell) {
+        hexCell.color = _activeColor;
+        hexCell.Elevation = _activeElevation;
+        hexgrid.Refresh();
     }
 }
