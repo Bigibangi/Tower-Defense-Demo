@@ -9,7 +9,6 @@ public class HexGrid : MonoBehaviour {
     public Text textPrefab;
 
     public Color defaultColor = Color.white;
-    public Color touchedColor = Color.magenta;
     private Canvas _gridCanvas;
     private HexCell[] _cells;
     private HexMesh _hexMesh;
@@ -29,13 +28,6 @@ public class HexGrid : MonoBehaviour {
 
     private void Start() {
         _hexMesh.Triangulate(_cells);
-    }
-
-    private void Update() {
-        //migrate to Unity.InputSystem
-        if (Input.GetMouseButtonDown(0)) {
-            HandleInput();
-        }
     }
 
     #endregion MonoBehavior
@@ -58,21 +50,12 @@ public class HexGrid : MonoBehaviour {
         label.text = cell.coordinates.ToStringOnSeparateLine();
     }
 
-    private void HandleInput() {
-        //DI
-        var inputRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        if (Physics.Raycast(inputRay, out hit)) {
-            TouchCell(hit.point);
-        }
-    }
-
-    private void TouchCell(Vector3 position) {
+    public void ColorCell(Vector3 position, Color color) {
         position = transform.InverseTransformPoint(position);
         var coordinates = HexCoordinates.FromPosition(position);
         int index = coordinates.X + coordinates.Z * width + coordinates.Z / 2;
         HexCell cell = _cells[index];
-        cell.color = touchedColor;
+        cell.color = color;
         _hexMesh.Triangulate(_cells);
         Debug.Log("touched at " + coordinates.ToString());
     }
