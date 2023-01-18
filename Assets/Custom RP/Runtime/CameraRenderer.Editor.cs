@@ -1,5 +1,6 @@
 ﻿using UnityEditor;
 using UnityEngine;
+using UnityEngine.Profiling;
 using UnityEngine.Rendering;
 
 public partial class CameraRenderer {
@@ -10,7 +11,11 @@ public partial class CameraRenderer {
 
     private partial void PrepareForSceneWindow();
 
+    private partial void PrepareBuffer();
+
 #if UNITY_EDITOR
+
+    private string SampleName { get; set; }
 
     private static ShaderTagId[] legacyShaderTagIds = {
         new ShaderTagId("Always"),
@@ -53,6 +58,16 @@ public partial class CameraRenderer {
             ScriptableRenderContext.EmitWorldGeometryForSceneView(_camera);
         }
     }
+
+    private partial void PrepareBuffer() {
+        Profiler.BeginSample("Editor Only");
+        _buffer.name = SampleName = _camera.name;
+        Profiler.EndSample();
+    }
+
+#else
+
+    string SampleName => BUFFER_NAME;
 
 #endif
 }
